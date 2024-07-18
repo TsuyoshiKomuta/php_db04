@@ -1,0 +1,515 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ヘッダーのCSS */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.login-button,
+.signup-button,
+.logout-button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.login-button {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #e8e8e8;
+}
+
+.signup-button {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.login-button:hover {
+    background-color: #e8e8e8;
+}
+
+.signup-button:hover {
+    background-color: #0056b3;
+}
+
+.logout-button {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #e8e8e8;
+}
+
+.logout-button:hover {
+    background-color: #e8e8e8;
+}
+/* ヘッダーのCSSここまで */
+
+#wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+#canvas {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1920px;
+    height: 960px;
+    align-content: flex-start;
+    display: flex;
+    justify-content: center;
+}
+
+.tile {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+    /* デバッグのための枠 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    position: relative;
+}
+
+.char-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+}
+
+.label {
+    position: absolute;
+    bottom: -20px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.first-char {
+    border: 5px solid skyblue;
+    background-image: url('images/char-1.png');
+}
+
+/* 開発用キャラクターアイコンCSS */
+.char02 {
+    border: 5px solid yellowgreen;
+    background-image: url('images/char-2.png');
+}
+
+.char03 {
+    border: 5px solid yellowgreen;
+    background-image: url('images/char-3.png');
+}
+
+.char04 {
+    border: 5px solid yellowgreen;
+    background-image: url('images/char-4.png');
+}
+
+/* 開発用キャラクターアイコンCSSここまで */
+
+/* 円形メニューのCSS */
+.circular-menu,
+.sub-menu-relative {
+    position: absolute;
+    display: none;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.menu-item,
+.sub-menu-item {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.0em;
+    font-weight: bold;
+    pointer-events: all;
+}
+
+.menu-item {
+    background-color: blue;
+    color: white;
+}
+
+.sub-menu-item.parent {
+    background-color: green;
+    color: white;
+}
+
+.sub-menu-item.spouse {
+    background-color: skyblue;
+    color: white;
+}
+
+.sub-menu-item.child {
+    background-color: pink;
+    color: white;
+}
+
+.sub-menu-item.ex-spouse {
+    background-color: burlywood;
+    color: white;
+}
+
+/* メニューアイテムの位置を円形に配置 */
+#add-relative {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#consider-inheritance {
+    top: 50%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+}
+
+#char-edit {
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#char-delete {
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+/* サブメニューアイテムの位置を円形に配置 */
+#add-parent {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#add-spouse {
+    top: 50%;
+    left: 200px;
+    transform: translate(-50%, -50%);
+}
+
+#add-child {
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#add-ex-spouse {
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+/* 各ラインコンポーネントのCSS */
+/* 配偶者ラインのCSS */
+.spouse-line {
+    position: absolute;
+    top: 45%;
+    width: 76px;
+    height: 15px;
+    background-color: transparent;
+    border-top: 4px solid red;
+    border-bottom: 4px solid red;
+    cursor: pointer;
+}
+
+.spouse-line:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+/* 元配偶者ラインのCSS */
+.ex-spouse-line {
+    position: absolute;
+    top: 45%;
+    width: 76px;
+    height: 4px;
+    background-color: transparent;
+    border-top: 5px dashed black;
+    cursor: pointer;
+}
+
+.ex-spouse-line:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+/* 配偶者子ラインのCSS */
+.spouse-child-line {
+    position: absolute;
+    top: 45%;
+    width: 76px;
+    height: 15px;
+    background-color: transparent;
+    border-top: 4px solid red;
+    border-bottom: 4px solid red;
+}
+
+.spouse-child-line::after {
+    content: '';
+    position: absolute;
+    top: calc(100%);
+    left: 50%;
+    width: 5px;
+    height: 45px;
+    background-color: black;
+    transform: translate(-50%, 0);
+}
+
+/* 元配偶者子ラインのCSS */
+.ex-spouse-child-line {
+    position: absolute;
+    top: 45%;
+    width: 76px;
+    height: 4px;
+    background-color: transparent;
+    border-top: 5px dashed black;
+}
+
+.ex-spouse-child-line::after {
+    content: '';
+    position: absolute;
+    top: calc(100%);
+    left: 50%;
+    width: 5px;
+    height: 45px;
+    background-color: black;
+    transform: translate(-50%, 0);
+}
+
+/* 親子ライン１のCSS */
+.parent-child-line01 {
+    position: absolute;
+    width: 5px;
+    height: 100px;
+    background-color: black;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+/* 親子ライン２のCSS */
+.parent-child-line02 {
+    position: absolute;
+    width: 5px;
+    height: 100px;
+    background-color: black;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.parent-child-line02::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 50px;
+    height: 5px;
+    background-color: black;
+    transform: translateX(10%);
+}
+
+/* 親子ライン３のCSS */
+.parent-child-line03 {
+    position: absolute;
+    width: 5px;
+    height: 50px;
+    background-color: black;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.parent-child-line03::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 5px;
+    background-color: black;
+    transform: translateX(-100%);
+}
+
+/* 親子ライン４のCSS */
+.parent-child-line04 {
+    position: absolute;
+    width: 5px;
+    height: 50px;
+    background-color: black;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.parent-child-line04::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 5px;
+    background-color: black;
+    transform: translateX(-50%);
+}
+
+/* 親子ライン５のCSS */
+.parent-child-line05 {
+    position: absolute;
+    width: 5px;
+    height: 100px;
+    background-color: black;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.parent-child-line05::before {
+    content: '';
+    position: absolute;
+    top: 39px;
+    right: 0;
+    width: 50px;
+    height: 5px;
+    background-color: black;
+    transform: translateX(0%);
+}
+
+/* 親子ライン６のCSS */
+.parent-child-line06 {
+    position: absolute;
+    width: 5px;
+    height: 40px;
+    background-color: black;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.parent-child-line06::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 5px;
+    background-color: black;
+    /* transform: translateX(100%); */
+}
+/* 各ラインコンポーネントのCSSここまで */
+
+/* ステータスダイアログのCSS */
+#status-dialog {
+    width: 920px;
+    height: 320px;
+    border: 2px solid #000;
+    background-color: #e8e8e8;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+}
+
+.status-content {
+    padding: 10px;
+}
+
+.status-header {
+    display: flex;
+    align-items: center;
+}
+
+.status-header img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.status-body p {
+    margin: 5px 0;
+}
+
+.status-body h3 {
+    margin-top: 10px;
+}
+/* ステータスダイアログのCSSここまで */
+
+/* フッターのCSS */
+footer {
+    background-color: #f5f5f5;
+    color: #00acee;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
